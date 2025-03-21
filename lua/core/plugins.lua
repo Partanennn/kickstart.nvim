@@ -32,6 +32,13 @@ require('lazy').setup({
   -- Use `opts = {}` to automatically pass options to a plugin's `setup()` function, forcing the plugin to be loaded.
   --
   {
+    'nvim-tree/nvim-tree.lua',
+    dependencies = { 'nvim-tree/nvim-web-devicons' },
+    config = function()
+      require('nvim-tree').setup()
+    end,
+  },
+  {
     'ThePrimeagen/vim-be-good',
     cmd = 'VimBeGood',
   },
