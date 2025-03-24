@@ -38,3 +38,14 @@ vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' }
 
 -- Toggle nvim tree
 vim.keymap.set('n', '<leader>e', ':NvimTreeToggle<CR>', { desc = 'Toggle File Explorer' })
+
+-- Toggle theme
+function ToggleTheme()
+  if vim.o.background == 'dark' then
+    vim.o.background = 'light'
+  else
+    vim.o.background = 'dark'
+  end
+end
+
+vim.api.nvim_set_keymap('n', '<leader>tt', ':lua ToggleTheme()<CR>', { desc = 'Toggle theme between light and dark', noremap = true, silent = true })
