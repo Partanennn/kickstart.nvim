@@ -16,3 +16,13 @@ cmp.setup {
     ['<S-Tab>'] = cmp.mapping.select_prev_item(), -- Move to previous item and select
   },
 }
+
+require('lspconfig').eslint.setup {
+  on_attach = function(client, bufnr)
+    -- Enable formatting on save if needed
+    client.server_capabilities.documentFOrmattingProvider = true
+  end,
+  settings = {
+    format = true, -- Auto-fix ESLint errors if possible
+  },
+}

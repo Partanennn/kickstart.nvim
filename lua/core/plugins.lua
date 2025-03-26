@@ -69,7 +69,42 @@ require('lazy').setup({
       },
     },
   },
+  {
+    'jose-elias-alvarez/null-ls.nvim',
+    dependencies = { 'nvim-lua/plenary.nvim' },
+    config = function()
+      local null_ls = require 'null-ls'
 
+      null_ls.setup {
+        sources = {
+          -- Use `eslint` instead of `eslint_d`
+          null_ls.builtins.diagnostics.eslint.with {
+            command = 'eslint', -- Ensure it's in your PATH
+            prefer_local = 'node_modules/.bin', -- Use project-local eslint if available
+          },
+          null_ls.builtins.code_actions.eslint.with {
+            command = 'eslint',
+            prefer_local = 'node_modules/.bin',
+          },
+          -- Prettier for formatting
+          null_ls.builtins.formatting.prettier.with {
+            prefer_local = 'node_modules/.bin',
+          },
+        },
+        -- Format on save
+        on_attach = function(client, bufnr)
+          if client.supports_method 'textDocument/formatting' then
+            vim.api.nvim_create_autocmd('BufWritePre', {
+              buffer = bufnr,
+              callback = function()
+                vim.lsp.buf.format { async = false }
+              end,
+            })
+          end
+        end,
+      }
+    end,
+  },
   -- NOTE: Plugins can also be configured to run Lua code when they are loaded.
   --
   -- This is often very useful to both group configuration, as well as handle
