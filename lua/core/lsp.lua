@@ -7,10 +7,7 @@ cmp.setup {
     { name = 'path' }, -- File paths
     { name = 'luasnip' }, -- Snippets
   },
-}
-
-cmp.setup {
-  mappping = {
+  mapping = {
     ['<CR>'] = cmp.mapping.confirm { select = true }, -- Accept completion with Enter
     ['<Tab>'] = cmp.mapping.select_next_item(), -- Move to next itme and select
     ['<S-Tab>'] = cmp.mapping.select_prev_item(), -- Move to previous item and select
@@ -20,9 +17,6 @@ cmp.setup {
 require('lspconfig').eslint.setup {
   on_attach = function(client, bufnr)
     -- Enable formatting on save if needed
-    client.server_capabilities.documentFOrmattingProvider = true
+    client.server_capabilities.documentFormattingProvider = true
   end,
-  settings = {
-    format = true, -- Auto-fix ESLint errors if possible
-  },
 }
